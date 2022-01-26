@@ -10,7 +10,7 @@ let x = 0;
 // full browser environment (see documentation).
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 300, height: 250 });
+figma.showUI(__html__, { width: 300, height: 300 });
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
@@ -37,6 +37,8 @@ figma.ui.onmessage = async msg => {
     }
   }
   else if (msg.type === 'generate') {
+    console.log({ msg });
+
     let y = 0;
     let width = 80;
 
@@ -99,7 +101,7 @@ figma.ui.onmessage = async msg => {
       if (isCcy) {
         cellTextValue = getRandomCcy()
       } else if (isQty) {
-        cellTextValue = numberValue.toFixed(4);
+        cellTextValue = numberValue.toFixed(msg.dp ?? 4) + msg.unit;
       }
 
       cellTextNode.characters = cellTextValue;
