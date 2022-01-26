@@ -1,0 +1,48 @@
+<h3>Grid Creator</h3>
+<p>Count: <input id="count" value="5"></p>
+<div>
+  <input type="radio" id="alignRadioLeft" name="align" value="left">
+  <label for="alignRadioLeft">Left</label>
+
+  <input type="radio" id="alignRadioRight" name="align" value="right">
+  <label for="alignRadioRight">Right</label>
+</div>
+<p>
+  <label>Header <input id="header" value=""></label>
+</p>
+<p>
+  <label>Type <select id="columnType" name="columnType" value="text">
+      <option value="text">text</option>
+      <option value="ccy">ccy</option>
+      <option value="qty">qty</option>
+    </select></label>
+</p>
+<button id="create">Create</button>
+<button id="log">Log</button>
+<script>
+
+  // document.getElementById('create-rects').onclick = () => {
+  //   const textbox = document.getElementById('count');
+  //   const count = parseInt(textbox.value, 10);
+  //   parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
+  // }
+
+  // document.getElementById('cancel').onclick = () => {
+  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  // }
+
+  document.getElementById('create').onclick = () => {
+    const textbox = document.getElementById('count');
+    const count = parseInt(textbox.value, 10);
+    const rightRadio = document.getElementById('alignRadioRight');
+    const align = rightRadio.checked ? 'right' : 'left';
+    const headerName = document.getElementById('header').value;
+    const columnType = document.getElementById('columnType').value;
+    parent.postMessage({ pluginMessage: { type: 'generate', count, align, headerName, columnType } }, '*')
+  }
+
+  document.getElementById('log').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'log' } }, '*')
+  }
+
+</script>
