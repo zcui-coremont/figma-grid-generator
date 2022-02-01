@@ -21,9 +21,17 @@
 <p>
   <label>Unit <input id="unit" value="" style="width: 40px;"></label>
   <label>DP <input id="dp" type="number" value="4" style="width: 40px;"></label>
+  <label>Scale <input id="scale" type="number" value="1" style="width: 40px;"></label>
 </p>
 <button id="create">Create</button>
 <button id="log">Log</button>
+<div>
+  <label>
+    Checked
+    <input type="checkbox" id="border-right-checkbox" checked="true"/>
+  </label>
+  <button id="border-right-button">border right</button>
+</div>
 <script>
 
   // document.getElementById('create-rects').onclick = () => {
@@ -45,12 +53,18 @@
     const columnType = document.getElementById('columnType').value;
     const unit = document.getElementById('unit').value;
     const dp = document.getElementById('dp').value;
-
-    parent.postMessage({ pluginMessage: { type: 'generate', count, align, headerName, columnType, unit, dp } }, '*')
+    const scale = document.getElementById('scale').value;
+    
+    parent.postMessage({ pluginMessage: { type: 'generate', count, align, headerName, columnType, unit, dp, scale } }, '*')
   }
 
   document.getElementById('log').onclick = () => {
     parent.postMessage({ pluginMessage: { type: 'log' } }, '*')
+  }
+
+  document.getElementById('border-right-button').onclick = () => {
+    const checked = document.getElementById('border-right-checkbox').checked;
+    parent.postMessage({ pluginMessage: { type: 'border-right', checked } }, '*')
   }
 
 </script>
